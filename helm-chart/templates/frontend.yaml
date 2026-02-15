@@ -282,4 +282,25 @@ spec:
         port:
           number: 80
 {{- end }}
+{{- if .Values.frontend.create }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    kubernetes.io/ingress.class: "traefik"   # K3s bringt Traefik standardmäßig
+spec:
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.frontend.name }}
+                port:
+                  number: 80
+{{- end }}
 {{- end }}

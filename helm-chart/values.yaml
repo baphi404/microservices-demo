@@ -138,6 +138,9 @@ frontend:
     limits:
       cpu: 200m
       memory: 128Mi
+  ingress:
+    enabled: true
+    host: onlineboutique.local
 
 loadGenerator:
   create: true
